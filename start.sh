@@ -5,7 +5,7 @@ set -e
 mkdir -p /tmp/code-server/{config,data,cache,extensions}
 
 # 启动 code-server（假设你已安装在当前目录）
-code-server \
+npx code-server \
   --port 8080 \
   --auth none \
   --user-data-dir /tmp/code-server/data \
