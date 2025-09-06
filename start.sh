@@ -1,14 +1,14 @@
 #!/bin/bash
 set -e
 
-# 设置密码（你可以改成你自己的密码）
+# 设置你自己的密码
 PASSWORD="your_secure_password"
 
-# 创建必要的目录
+# 创建运行目录
 mkdir -p /tmp/jupyter/{runtime,data,config}
 
-# 生成密码哈希
-HASHED_PASSWORD=$(python3 -c "from notebook.auth import passwd; print(passwd('$PASSWORD'))")
+# 生成密码哈希（使用 jupyter_server.auth）
+HASHED_PASSWORD=$(python3 -c "from jupyter_server.auth import passwd; print(passwd('$PASSWORD'))")
 
 # 写入配置文件
 cat <<EOF > /tmp/jupyter/config/jupyter_server_config.json
