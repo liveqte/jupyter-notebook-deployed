@@ -5,7 +5,7 @@ import http.server
 import socketserver
 import threading
 
-PORT = int(os.environ.get('SERVER_PORT') or os.environ.get('PORT') or 3000) # 订阅端口，若无法订阅请改为分配的端口
+PORT = int(os.environ.get('SERVER_PORT') or os.environ.get('PORT') or 8501) # 订阅端口，若无法订阅请改为分配的端口
 
 class MyHandler(http.server.SimpleHTTPRequestHandler):
 
