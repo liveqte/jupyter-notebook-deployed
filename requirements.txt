@@ -3,3 +3,4 @@ jupyter-server-terminals
 jupyter-events
 argon2-cffi
 ansi2html
+beautifulsoup4
