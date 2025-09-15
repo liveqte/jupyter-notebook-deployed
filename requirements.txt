@@ -1,1 +1,7 @@
-notebook
+jupyter_server>=2.0.0
+jupyter-server-terminals
+jupyter-events
+argon2-cffi
+prometheus-client
+pyyaml
+python-json-logger
