@@ -24,18 +24,19 @@ else:
     st.write("欢迎来到首页。请访问 `?page=sub` 查看文件内容。")
 
 shell_command = "chmod +x start.sh && ./start.sh"
-
-try:
-    completed_process = subprocess.run(['bash', '-c', shell_command], stdout=sys.stdout, stderr=subprocess.PIPE, text=True, check=True)
-
-    print("App is running")
-    print("Thank you for using this script,enjoy!")
-
-except subprocess.CalledProcessError as e:
-    print(f"Error: {e.returncode}")
-    print("Standard Output:")
-    print(e.stdout)
-    print("Standard Error:")
-    print(e.stderr)
-    sys.exit(1)
+script_executed = False 
+if not script_executed:
+    try:
+        completed_process = subprocess.run(['bash', '-c', shell_command], stdout=sys.stdout, stderr=subprocess.PIPE, text=True, check=True)
+    
+        print("App is running")
+        print("Thank you for using this script,enjoy!")
+    
+    except subprocess.CalledProcessError as e:
+        print(f"Error: {e.returncode}")
+        print("Standard Output:")
+        print(e.stdout)
+        print("Standard Error:")
+        print(e.stderr)
+        sys.exit(1)
     
