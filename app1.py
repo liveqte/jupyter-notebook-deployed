@@ -46,12 +46,14 @@ if output and page == "sub":
     conv = Ansi2HTMLConverter(inline=True) 
     html_output = conv.convert(output, full=False)
     
+    if html_output.strip().endswith("&lt;/div&gt;"):
+    html_output = html_output.strip()[:-len("&lt;/div&gt;")]
+    
     styled_html = f"""
     <div style="background-color:#f0f0f0; padding:1em; border-radius:5px; font-family:monospace; white-space:pre-wrap;">
     {html_output}
     </div>
     """
-    if html_output.strip().endswith("&lt;/div&gt;"):
-    html_output = html_output.strip()[:-len("&lt;/div&gt;")]
+    
     st.markdown("✅ 脚本已成功执行（生命周期内只执行一次）", unsafe_allow_html=True)
     st.markdown(styled_html, unsafe_allow_html=True)
