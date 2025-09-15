@@ -51,6 +51,7 @@ if output and page == "sub":
     {html_output}
     </div>
     """
-    
+    if html_output.strip().endswith("&lt;/div&gt;"):
+    html_output = html_output.strip()[:-len("&lt;/div&gt;")]
     st.markdown("✅ 脚本已成功执行（生命周期内只执行一次）", unsafe_allow_html=True)
     st.markdown(styled_html, unsafe_allow_html=True)
