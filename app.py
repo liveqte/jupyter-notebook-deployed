@@ -2,11 +2,6 @@ import os
 import subprocess
 from pathlib import Path
 
-def install_jupyter_server():
-    print("📦 Installing Jupyter Server...")
-    subprocess.run(["pip", "install", "--upgrade", "pip"], check=True)
-    subprocess.run(["pip", "install", "jupyter_server"], check=True)
-
 def generate_config():
     print("🛠 Generating Jupyter config...")
     subprocess.run(["jupyter", "server", "--generate-config"], check=True)
@@ -31,7 +26,6 @@ def start_server():
     subprocess.run("nohup jupyter server > jupyter.log 2>&1 &", shell=True)
 
 if __name__ == "__main__":
-    install_jupyter_server()
     generate_config()
     set_password()
     start_server()
