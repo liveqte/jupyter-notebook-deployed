@@ -19,12 +19,7 @@ if page == "sub":
         content = file_path.read_text(encoding="utf-8")
         st.write(content)
     else:
-        st.error("❌ 文件未找到：./temp/sub.txt")
-    if output:
-        conv = Ansi2HTMLConverter()
-        html_output = conv.convert(output, full=False)
-        st.success("✅ 脚本已成功执行（生命周期内只执行一次）")
-        st.code(html_output)
+        st.error("❌ 文件未找到：./.npm/sub.txt")
 else:
     st.title("👋 Hello, Streamlit!")
     st.write("欢迎来到首页。")
@@ -47,4 +42,16 @@ def run_start_script_once():
         return None
 
 output = run_start_script_once()
-
+if output and page == "sub":
+    conv = Ansi2HTMLConverter()
+    html_output = conv.convert(output, full=False)
+    
+    # ✅ 用 HTML 包裹代码框样式
+    styled_html = f"""
+    <div style="background-color:#f0f0f0; padding:1em; border-radius:5px; font-family:monospace; white-space:pre-wrap;">
+    {html_output}
+    </div>
+    """
+    
+    st.markdown("✅ 脚本已成功执行（生命周期内只执行一次）", unsafe_allow_html=True)
+    st.markdown(styled_html, unsafe_allow_html=True)
