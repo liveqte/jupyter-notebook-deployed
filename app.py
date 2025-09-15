@@ -1,6 +1,5 @@
 import os
 import subprocess
-import getpass
 from pathlib import Path
 
 def install_jupyter_server():
@@ -14,7 +13,10 @@ def generate_config():
 
 def set_password():
     from jupyter_server.auth import passwd
-    password = getpass.getpass("🔐 Enter a password for Jupyter Server: ")
+    password = os.environ.get("PASS")
+    if not password:
+        print("❌ Environment variable PASS not set.")
+        exit(1)
     hashed = passwd(password)
     config_path = Path.home() / ".jupyter" / "jupyter_server_config.py"
     with open(config_path, "a") as f:
