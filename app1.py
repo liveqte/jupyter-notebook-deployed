@@ -43,10 +43,9 @@ def run_start_script_once():
 
 output = run_start_script_once()
 if output and page == "sub":
-    conv = Ansi2HTMLConverter()
+    conv = Ansi2HTMLConverter(inline=True) 
     html_output = conv.convert(output, full=False)
     
-    # ✅ 用 HTML 包裹代码框样式
     styled_html = f"""
     <div style="background-color:#f0f0f0; padding:1em; border-radius:5px; font-family:monospace; white-space:pre-wrap;">
     {html_output}
