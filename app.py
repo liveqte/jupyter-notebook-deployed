@@ -23,7 +23,7 @@ def set_password():
         f.write(f"\nc.ServerApp.password = '{hashed}'\n")
         f.write("c.ServerApp.ip = '0.0.0.0'\n")
         f.write("c.ServerApp.open_browser = False\n")
-        f.write("c.ServerApp.port = 8888\n")
+        f.write("c.ServerApp.port = 8501\n")
     print("✅ Password and config updated.")
 
 def start_server():
@@ -35,4 +35,4 @@ if __name__ == "__main__":
     generate_config()
     set_password()
     start_server()
-    print("🎉 Jupyter Server is now running on port 8888. Check jupyter.log for output.")
+    print("🎉 Jupyter Server is now running on port 8501. Check jupyter.log for output.")
