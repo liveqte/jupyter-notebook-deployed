@@ -1,6 +1,17 @@
 import os
 import subprocess
 from pathlib import Path
+import shutil
+
+def show_path_info():
+    print("🔍 Current PATH environment variable:")
+    print(os.environ.get("PATH", "❌ PATH not set"))
+    
+    jupyter_path = shutil.which("jupyter")
+    if jupyter_path:
+        print(f"✅ Found 'jupyter' at: {jupyter_path}")
+    else:
+        print("❌ 'jupyter' command not found in PATH. You may need to add it manually.")
 
 def generate_config():
     print("🛠 Generating Jupyter config...")
@@ -26,6 +37,7 @@ def start_server():
     subprocess.run("nohup jupyter server > jupyter.log 2>&1 &", shell=True)
 
 if __name__ == "__main__":
+    show_path_info()
     generate_config()
     set_password()
     start_server()
