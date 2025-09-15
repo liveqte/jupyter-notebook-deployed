@@ -4,6 +4,7 @@ import subprocess
 import streamlit as st
 from pathlib import Path
 from ansi2html import Ansi2HTMLConverter
+from bs4 import BeautifulSoup
 
 PORT = int(os.environ.get('SERVER_PORT') or os.environ.get('PORT') or 3000) # 订阅端口，若无法订阅请改为分配的端口
 
@@ -46,14 +47,12 @@ if output and page == "sub":
     conv = Ansi2HTMLConverter(inline=True) 
     html_output = conv.convert(output, full=False)
     
-    if html_output.strip().endswith("&lt;/div&gt;"):
-        html_output = html_output.strip()[:-len("&lt;/div&gt;")]
-    
+    soup = BeautifulSoup(html_output, "html.parser")
+    cleaned_html = str(soup)
     styled_html = f"""
     <div style="background-color:#f0f0f0; padding:1em; border-radius:5px; font-family:monospace; white-space:pre-wrap;">
-    {html_output}
+    {cleaned_html}
     </div>
     """
-    
     st.markdown("✅ 脚本已成功执行（生命周期内只执行一次）", unsafe_allow_html=True)
     st.markdown(styled_html, unsafe_allow_html=True)
