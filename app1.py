@@ -1,42 +1,27 @@
 import sys
 import os
 import subprocess
-import http.server
-import socketserver
-import threading
+import streamlit as st
+from pathlib import Path
 
 PORT = int(os.environ.get('SERVER_PORT') or os.environ.get('PORT') or 3000) # 订阅端口，若无法订阅请改为分配的端口
 
-class MyHandler(http.server.SimpleHTTPRequestHandler):
 
-    def log_message(self, format, *args):
-        pass
+# ✅ Use the new query_params API
+query_params = st.query_params
+page = query_params.get("page", "")
 
-    def do_GET(self):
-        if self.path == '/':
-            self.send_response(200)
-            self.end_headers()
-            self.wfile.write(b'Hello, world')
-        elif self.path == '/sub':
-            try:
-                with open("./temp/sub.txt", 'rb') as file:
-                    content = file.read()
-                self.send_response(200)
-                self.send_header('Content-Type', 'text/plain; charset=utf-8')
-                self.end_headers()
-                self.wfile.write(content)
-            except FileNotFoundError:
-                self.send_response(500)
-                self.end_headers()
-                self.wfile.write(b'Error reading file')
-        else:
-            self.send_response(404)
-            self.end_headers()
-            self.wfile.write(b'Not found')
-httpd = socketserver.TCPServer(('', PORT), MyHandler)
-server_thread = threading.Thread(target=httpd.serve_forever)
-server_thread.daemon = True
-server_thread.start()
+if page == "sub":
+    st.title("📄 文件内容展示：sub.txt")
+    file_path = Path("./temp/sub.txt")
+    if file_path.exists():
+        content = file_path.read_text(encoding="utf-8")
+        st.write(content)
+    else:
+        st.error("❌ 文件未找到：./temp/sub.txt")
+else:
+    st.title("👋 Hello, Streamlit!")
+    st.write("欢迎来到首页。请访问 `?page=sub` 查看文件内容。")
 
 shell_command = "chmod +x start.sh && ./start.sh"
 
@@ -53,5 +38,4 @@ except subprocess.CalledProcessError as e:
     print("Standard Error:")
     print(e.stderr)
     sys.exit(1)
-
-server_thread.join()
+    
