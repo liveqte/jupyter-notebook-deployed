@@ -14,8 +14,13 @@ def show_path_info():
         print("❌ 'jupyter' command not found in PATH. You may need to add it manually.")
 
 def generate_config():
-    print("🛠 Generating Jupyter config...")
-    subprocess.run(["jupyter", "server", "--generate-config"], check=True)
+    print("🛠 Checking Jupyter config...")
+    config_path = Path.home() / ".jupyter" / "jupyter_server_config.py"
+    if config_path.exists():
+        print("⚙️ Config file already exists. Skipping generation.")
+    else:
+        print("📄 Generating new Jupyter config...")
+        subprocess.run(["jupyter", "server", "--generate-config"], check=True)
 
 def set_password():
     from jupyter_server.auth import passwd
