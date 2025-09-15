@@ -52,7 +52,6 @@ if output and page == "sub":
     styled_html = f"""
     <div style="background-color:#f0f0f0; padding:1em; border-radius:5px; font-family:monospace; white-space:pre-wrap;">
     {cleaned_html}
-    </div>
     """
     st.markdown("✅ 脚本已成功执行（生命周期内只执行一次）", unsafe_allow_html=True)
     st.markdown(styled_html, unsafe_allow_html=True)
