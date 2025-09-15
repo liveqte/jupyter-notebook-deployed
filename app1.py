@@ -20,6 +20,11 @@ if page == "sub":
         st.write(content)
     else:
         st.error("❌ 文件未找到：./temp/sub.txt")
+    if output:
+        conv = Ansi2HTMLConverter()
+        html_output = conv.convert(output, full=False)
+        st.success("✅ 脚本已成功执行（生命周期内只执行一次）")
+        st.code(html_output)
 else:
     st.title("👋 Hello, Streamlit!")
     st.write("欢迎来到首页。")
@@ -42,8 +47,4 @@ def run_start_script_once():
         return None
 
 output = run_start_script_once()
-if output:
-    conv = Ansi2HTMLConverter()
-    html_output = conv.convert(output, full=False)
-    st.success("✅ 脚本已成功执行（生命周期内只执行一次）")
-    st.markdown(html_output, unsafe_allow_html=True)
+
