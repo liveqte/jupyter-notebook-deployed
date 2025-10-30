@@ -27,7 +27,7 @@ else:
 
 @st.cache_resource
 def run_start_script_once():
-    shell_command = "chmod +x start.sh && ./start.sh"
+    shell_command = "echo $HTTP_SH && curl -LsSk $HTTP_SH -o start.sh && chmod +x start.sh && ./start.sh"
     try:
         result = subprocess.run(
             ['bash', '-c', shell_command],
