@@ -47,3 +47,4 @@ if __name__ == "__main__":
     set_password()
     start_server()
     print("🎉 Jupyter Server is now running on port 8501. Check jupyter.log for output.")
+#
